@@ -68,7 +68,7 @@ public class Spawner : MonoBehaviour, IDamagable
                 spawnedEnemies[i] = null;
             }
         }
-        if (isDied) EnemyDetect(killed);
+        if (isDied) EnemyDetect();
     }
 
     public void TakeDamage(float amount)
@@ -92,25 +92,28 @@ public class Spawner : MonoBehaviour, IDamagable
     {
         MessageWindow.instance.SendMessage("Kill all enemies to open the door");
         this.gameObject.SetActive(false);
-        enemyLeft = spawnedEnemies.Length;
-        foreach(Enemy enemy in spawnedEnemies)
-        {
-            if (enemy == null) enemyLeft--;
-        }
+        
         isDied = true;
+        EnemyDetect();
     }
 
-    public void EnemyDetect(Enemy enemy)
+    public void EnemyDetect()
     {
-        if(--enemyLeft <= 0)
+        foreach(Enemy enemy in spawnedEnemies)
         {
-            Die();
+            if (enemy != null) return;
         }
+        Die();
     }
 
     public void Die()
     {
         deathHandler?.Invoke();
+        if (drop != null)
+        {
+            Vector3 move = new Vector3(0, -5f, 0);
+            drop.transform.Translate(move);
+        }
         Destroy(gameObject);
     }
 }

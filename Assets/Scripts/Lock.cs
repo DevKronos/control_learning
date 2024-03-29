@@ -5,7 +5,9 @@ using TMPro;
 
 public class Lock : MonoBehaviour
 {
-    public string color;
+    [SerializeField] private string color;
+    public string Color { get => color; }
+    /*
     public GameObject door;
     private bool isPressed = false;
 
@@ -34,9 +36,5 @@ public class Lock : MonoBehaviour
     {
         isPressed = false;
     }
-
-    public string GetColor()
-    {
-        return color;
-    }
+    */
 }
