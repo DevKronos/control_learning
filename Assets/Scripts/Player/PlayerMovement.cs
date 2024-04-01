@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, ITeleportable
 {
     public CharacterController controller;
 
@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+
+    private bool isTeleporting = true;
+    public bool TeleportState { get => isTeleporting; set => isTeleporting = value; }
 
     // Update is called once per frame
     void Update()
@@ -42,5 +45,13 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void Teleport(Vector3 teleportPoint)
+    {
+        TeleportState = false;
+        controller.gameObject.SetActive(false);
+        this.transform.position = teleportPoint;
+        controller.gameObject.SetActive(true);
     }
 }

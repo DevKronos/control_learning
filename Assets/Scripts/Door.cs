@@ -20,7 +20,20 @@ public class Door : MonoBehaviour
     public void CheckKeys()
     {
         string colors = "";
-        foreach(Lock locky in locks)
+        for(int i = 0; i < locks.Count; i++)
+        {
+            if (PlayerManager.instance.HasKey(locks[i].Color))
+            {
+                PlayerManager.instance.LoseKey(locks[i].Color);
+                Destroy(locks[i].gameObject);
+                locks.Remove(locks[i]);
+            }
+            else
+            {
+                colors += locks[i].Color + " ";
+            }
+        }
+        /*foreach(Lock locky in locks)
         {
             if (PlayerManager.instance.HasKey(locky.Color))
             {
@@ -32,7 +45,7 @@ public class Door : MonoBehaviour
             {
                 colors += locky.Color + " ";
             }
-        }
+        }*/
         print("Here");
         if (colors != "")
         {
