@@ -53,4 +53,11 @@ public class PlayerManager : MonoBehaviour , IDamagable
     {
         inventory.RemoveItem(color);
     }
+
+    public void Health(float amount)
+    {
+        health += amount;
+        if (health > 100) health = 100;
+        healthbar.SetHealth(health);
+    }
 }

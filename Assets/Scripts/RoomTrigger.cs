@@ -54,6 +54,7 @@ public class RoomTrigger : MonoBehaviour
         if (spawnersDie >= totalSpawners)
         {
             ChangeDors(active: false);
+            PlayerManager.instance.Health(100f);
             Destroy(gameObject);
         }
     }
