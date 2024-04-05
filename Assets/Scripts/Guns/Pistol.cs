@@ -4,5 +4,13 @@ using UnityEngine;
 
 public class Pistol : Gun
 {
+    private float damage = 10f;
+    private float impactForce = 0f;
+    private int currentAmmo;
 
+    public override float Damage => damage;
+
+    public override float ImpactForce => impactForce;
+
+    public override int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
 }

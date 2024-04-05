@@ -3,32 +3,40 @@ using UnityEngine;
 
 public abstract class Gun : MonoBehaviour
 {
-    public float damage = 10f;
+    public abstract float Damage { get; }
+    public abstract float ImpactForce { get; }
+    public abstract int CurrentAmmo { get; set; }
+    /*public float damage = 10f;
     public float range = 100f;
     public float firerate = 15f;
     public float impactForce;
     public bool isAutomatic = false;
-    private float nextTimeToFire = 0f;
+    public int maxAmmo = 10;
+    public int currentAmmo;*/
+    
 
     public Camera fpsCam;
     public Transform muzzle;
     public GameObject muzzleFlash;
     public GameObject impactEffect;
 
-    public int maxAmmo = 10;
-    public int currentAmmo;
-    public float reloadTime = 1f;
+    public float range = 100f;
+    public float firerate = 15f;
     private bool isReloading = false;
     private bool isAiming = false;
+    public bool isAutomatic = false;
+    public int maxAmmo = 15;
+    public float reloadTime = 1f;
+    private float nextTimeToFire = 0f;
 
     public Animator animator;
     public AmountAmmo amountAmmo;
 
     void Start()
     {
-        currentAmmo = maxAmmo;
+        CurrentAmmo = maxAmmo;
         amountAmmo.SetMaxAmmo(maxAmmo);
-        amountAmmo.SetAmount(currentAmmo);
+        amountAmmo.SetAmount(CurrentAmmo);
     }
 
     void OnEnable()
@@ -37,7 +45,7 @@ public abstract class Gun : MonoBehaviour
         isAiming = true;
         SetAimMode();
         animator.SetBool("Reloading", false);
-        amountAmmo.SetMaxAmmo(currentAmmo);
+        amountAmmo.SetMaxAmmo(CurrentAmmo);
     }
 
     public virtual void SetAimMode()
@@ -57,13 +65,13 @@ public abstract class Gun : MonoBehaviour
 
     public virtual void TryReload()
     {
-        if(currentAmmo <= maxAmmo)
+        if(CurrentAmmo <= maxAmmo)
         {
             StartCoroutine(Reload());
         }
     }
 
-    private IEnumerator Reload()
+    protected IEnumerator Reload()
     {
         isReloading = true;
         if (isAiming)
@@ -80,8 +88,8 @@ public abstract class Gun : MonoBehaviour
 
         yield return new WaitForSeconds(.25f);
 
-        currentAmmo = maxAmmo;
-        amountAmmo.SetAmount(currentAmmo);
+        CurrentAmmo = maxAmmo;
+        amountAmmo.SetAmount(CurrentAmmo);
         isReloading = false;
     }
 
@@ -104,14 +112,14 @@ public abstract class Gun : MonoBehaviour
         GameObject muzzleGo = Instantiate(muzzleFlash, muzzle.position, muzzle.rotation);
         Destroy(muzzleGo, 0.6f);
 
-        currentAmmo--;
-        if (currentAmmo <= 0)
+        CurrentAmmo--;
+        if (CurrentAmmo <= 0)
         {
             StartCoroutine(Reload());
         }
         else
         {
-            amountAmmo.SetAmount(currentAmmo);
+            amountAmmo.SetAmount(CurrentAmmo);
         }
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
@@ -119,12 +127,12 @@ public abstract class Gun : MonoBehaviour
             IDamagable damagable = hit.transform.GetComponent<IDamagable>();
             if (damagable != null)
             {
-                damagable.TakeDamage(damage);
+                damagable.TakeDamage(Damage);
             }
 
             if (hit.rigidbody != null)
             {
-                hit.rigidbody.AddForce(-hit.normal * impactForce);
+                hit.rigidbody.AddForce(-hit.normal * ImpactForce);
             }
 
             GameObject impactGo = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
