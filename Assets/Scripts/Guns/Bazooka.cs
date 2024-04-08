@@ -14,32 +14,18 @@ public class Bazooka : Gun
 
     public override int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
 
-    public Transform rocket;
+    public Rocket rocket;
+    public Vector3 force;
 
     protected override void Shoot()
     {
-        GameObject muzzleGo = Instantiate(muzzleFlash, muzzle.position, muzzle.rotation);
-        Destroy(muzzleGo, 0.6f);
+        Rocket rocketGo = Instantiate(rocket, muzzle.position, muzzle.rotation);
+        //rocket.gameObject.SetActive(false);
+        rocketGo.GetComponent<Rigidbody>().AddForce(force);
+        print("Its flying");
 
         CurrentAmmo--;
         StartCoroutine(Reload());
-
-        RaycastHit hit;
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
-        {
-            IDamagable damagable = hit.transform.GetComponent<IDamagable>();
-            if (damagable != null)
-            {
-                damagable.TakeDamage(Damage);
-            }
-
-            if (hit.rigidbody != null)
-            {
-                hit.rigidbody.AddForce(-hit.normal * ImpactForce);
-            }
-
-            GameObject impactGo = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGo, 1f);
-        }
     }
+
 }

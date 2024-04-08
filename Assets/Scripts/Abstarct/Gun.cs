@@ -6,13 +6,6 @@ public abstract class Gun : MonoBehaviour
     public abstract float Damage { get; }
     public abstract float ImpactForce { get; }
     public abstract int CurrentAmmo { get; set; }
-    /*public float damage = 10f;
-    public float range = 100f;
-    public float firerate = 15f;
-    public float impactForce;
-    public bool isAutomatic = false;
-    public int maxAmmo = 10;
-    public int currentAmmo;*/
     
 
     public Camera fpsCam;
@@ -71,7 +64,7 @@ public abstract class Gun : MonoBehaviour
         }
     }
 
-    protected IEnumerator Reload()
+    protected virtual IEnumerator Reload()
     {
         isReloading = true;
         if (isAiming)
