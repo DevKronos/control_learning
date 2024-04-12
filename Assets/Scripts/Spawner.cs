@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour, IDamagable
 
     public HealthBar healthbar;
     public Enemy[] enemies;
-    public GameObject drop;
+    public Item drop;
 
     void Start()
     {
@@ -111,7 +111,7 @@ public class Spawner : MonoBehaviour, IDamagable
         deathHandler?.Invoke();
         if (drop != null)
         {
-            Vector3 move = new Vector3(0, -5f, 0);
+            Vector3 move = new Vector3(0, -4.5f, 0);
             drop.transform.Translate(move);
         }
         Destroy(gameObject);

@@ -15,14 +15,16 @@ public class Bazooka : Gun
     public override int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
 
     public Rocket rocket;
-    public Vector3 force;
+    public float speed;
 
     protected override void Shoot()
     {
         Rocket rocketGo = Instantiate(rocket, muzzle.position, muzzle.rotation);
-        //rocket.gameObject.SetActive(false);
-        rocketGo.GetComponent<Rigidbody>().AddForce(force);
-        print("Its flying");
+        rocketGo.IsFired = true;
+        rocketGo.ExplsEffect = impactEffect;
+
+        Vector3 force = transform.forward;
+        rocketGo.GetComponent<Rigidbody>().AddForce(speed * force);
 
         CurrentAmmo--;
         StartCoroutine(Reload());

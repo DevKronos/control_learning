@@ -17,6 +17,8 @@ public class PlayerManager : MonoBehaviour , IDamagable
     public GameObject player;
     public HealthBar healthbar;
     public Inventory inventory;
+    public Camera playerCam;
+    public AmountAmmo playerAmmo;
 
     public void Start()
     {

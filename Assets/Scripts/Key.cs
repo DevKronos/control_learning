@@ -3,19 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Key : MonoBehaviour
+public class Key : Item
 {
     [SerializeField] private string color;
     [SerializeField] private Image itemSprite;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        PlayerMovement player = other.transform.GetComponent<PlayerMovement>();
-        if (player == null) return;
-        PlayerManager.instance.FindKey(this);
-
-        Destroy(this.gameObject);
-    }
 
     public Image GetSprite()
     {
@@ -25,5 +17,12 @@ public class Key : MonoBehaviour
     public string GetColor()
     {
         return color;
+    }
+
+    public override void TakeAction()
+    {
+        PlayerManager.instance.FindKey(this);
+
+        Destroy(this.gameObject);
     }
 }

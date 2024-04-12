@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GunManager : MonoBehaviour
 {
     public int selectedWeapon = 0;
-    public Gun[] guns;
+    public List<Gun> guns;
     private void Update()
     {
+        if (guns[selectedWeapon].IsReloading) return;
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             guns[selectedWeapon].TryReload();
@@ -22,7 +25,7 @@ public class GunManager : MonoBehaviour
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            if (selectedWeapon >= guns.Length - 1)
+            if (selectedWeapon >= guns.Count - 1)
             {
                 selectedWeapon = 0;
                 SelectWeapon(selectedWeapon);
@@ -36,7 +39,7 @@ public class GunManager : MonoBehaviour
         {
             if (selectedWeapon <= 0)
             {
-                selectedWeapon = guns.Length - 1;
+                selectedWeapon = guns.Count - 1;
                 SelectWeapon(selectedWeapon);
             }
             else
@@ -52,5 +55,13 @@ public class GunManager : MonoBehaviour
             gun.gameObject.SetActive(false);
         }
         guns[equip].gameObject.SetActive(true);
+    }
+
+    public void AddWeapon(Gun origin)
+    {
+        origin.amountAmmo = PlayerManager.instance.playerAmmo;
+        origin.fpsCam = PlayerManager.instance.playerCam;
+        Gun gun = Instantiate(origin, this.transform.position, this.transform.rotation, this.transform);
+        guns.Add(gun);
     }
 }

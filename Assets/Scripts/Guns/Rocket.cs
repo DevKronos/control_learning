@@ -11,17 +11,23 @@ public class Rocket : MonoBehaviour
     private bool isFired = false;
     public bool IsFired { set => isFired = value; }
 
-    public GameObject explsEffect;
+    private GameObject explsEffect;
+    public GameObject ExplsEffect { set => explsEffect = value; }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (isFired) Explode();
     }
 
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if (isFired) Explode();
+    }*/
+
     public void Explode()
     {
         GameObject explossion = Instantiate(explsEffect, transform.position, transform.rotation);
-        Destroy(explossion, 2f);
+        Destroy(explossion, 0.5f);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, explsRadius);
         foreach (Collider strucked in colliders)
@@ -33,7 +39,7 @@ public class Rocket : MonoBehaviour
             }
 
             IDamagable damagable = strucked.GetComponent<IDamagable>();
-            PlayerMovement player = strucked.GetComponent<PlayerMovement>();
+            PlayerManager player = strucked.GetComponent<PlayerManager>();
             if (damagable != null && player == null)
             {
                 damagable.TakeDamage(damage);

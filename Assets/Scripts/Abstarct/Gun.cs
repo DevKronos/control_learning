@@ -22,11 +22,15 @@ public abstract class Gun : MonoBehaviour
     public float reloadTime = 1f;
     private float nextTimeToFire = 0f;
 
+    public bool IsReloading { get => isReloading; }
+
     public Animator animator;
     public AmountAmmo amountAmmo;
 
     void Start()
     {
+        fpsCam = PlayerManager.instance.playerCam;
+        amountAmmo = PlayerManager.instance.playerAmmo;
         CurrentAmmo = maxAmmo;
         amountAmmo.SetMaxAmmo(maxAmmo);
         amountAmmo.SetAmount(CurrentAmmo);
