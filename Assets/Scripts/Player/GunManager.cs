@@ -61,6 +61,7 @@ public class GunManager : MonoBehaviour
     {
         origin.amountAmmo = PlayerManager.instance.playerAmmo;
         origin.fpsCam = PlayerManager.instance.playerCam;
+        origin.gameObject.SetActive(false);
         Gun gun = Instantiate(origin, this.transform.position, this.transform.rotation, this.transform);
         guns.Add(gun);
     }

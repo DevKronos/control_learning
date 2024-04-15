@@ -42,7 +42,7 @@ public abstract class Enemy : MonoBehaviour , IDamagable
                 if (Time.time >= nextTimeToAttack && CanAttack)
                 {
                     nextTimeToAttack = Time.time + AttackCD;
-                    StartCoroutine(Attack());
+                    Attack();
                 }
             }
         }
@@ -88,5 +88,5 @@ public abstract class Enemy : MonoBehaviour , IDamagable
         }
     }
 
-    public abstract IEnumerator Attack();
+    public abstract void Attack();
 }

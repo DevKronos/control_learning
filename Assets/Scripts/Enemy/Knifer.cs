@@ -16,7 +16,12 @@ public class Knifer : Enemy
     public override float AttackCD => attackCD; 
     public override bool CanAttack => canAttack;
 
-    public override IEnumerator Attack()
+    public override void Attack()
+    {
+        StartCoroutine(KnifeThrow());
+    }
+
+    public IEnumerator KnifeThrow()
     {
         canAttack = false;
 

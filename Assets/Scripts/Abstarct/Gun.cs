@@ -29,8 +29,8 @@ public abstract class Gun : MonoBehaviour
 
     void Start()
     {
-        fpsCam = PlayerManager.instance.playerCam;
-        amountAmmo = PlayerManager.instance.playerAmmo;
+        //fpsCam = PlayerManager.instance.playerCam;
+        //amountAmmo = PlayerManager.instance.playerAmmo;
         CurrentAmmo = maxAmmo;
         amountAmmo.SetMaxAmmo(maxAmmo);
         amountAmmo.SetAmount(CurrentAmmo);
@@ -38,11 +38,13 @@ public abstract class Gun : MonoBehaviour
 
     void OnEnable()
     {
-        isReloading = false;
+        //fpsCam = PlayerManager.instance.playerCam;
+        //amountAmmo = PlayerManager.instance.playerAmmo;
+        //isReloading = false;
         isAiming = true;
         SetAimMode();
-        animator.SetBool("Reloading", false);
-        amountAmmo.SetMaxAmmo(CurrentAmmo);
+        //animator.SetBool("Reloading", false);
+        amountAmmo.SetMaxAmmo(maxAmmo);
     }
 
     public virtual void SetAimMode()
@@ -133,7 +135,7 @@ public abstract class Gun : MonoBehaviour
             }
 
             GameObject impactGo = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGo, 1f);
+            Destroy(impactGo.gameObject, 1f);
         }
     }
 }

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6520743031914806223
 Transform:
   m_ObjectHideFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6520743031914806221}
-  m_LocalRotation: {x: -0, y: 0.04632473, z: -0, w: 0.9989265}
+  m_LocalRotation: {x: 0, y: 0.04632192, z: 0, w: 0.9989266}
   m_LocalPosition: {x: 0, y: -0.32100028, z: -0.61348677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 6520743032773470407}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 5.31, z: 0}
 --- !u!114 &6520743031914806220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   fpsCam: {fileID: 0}
   muzzle: {fileID: 6520743032773470407}
   muzzleFlash: {fileID: 0}
-  impactEffect: {fileID: 0}
+  impactEffect: {fileID: 3063416137609016801, guid: 4ec4f68b48933064f8cca2378da19296, type: 3}
   range: 100
   firerate: 15
   isAutomatic: 0

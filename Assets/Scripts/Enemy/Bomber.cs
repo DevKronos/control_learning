@@ -21,7 +21,12 @@ public class Bomber : Enemy
     public GameObject originBomb;
     public float throwForce = 1.05f;
 
-    public override IEnumerator Attack()
+    public override void Attack()
+    {
+        StartCoroutine(BombThrow());
+    }
+
+    public IEnumerator BombThrow()
     {
         canAttack = false;
         GameObject bomb = Instantiate(originBomb, WeaponPos.transform.position, WeaponPos.transform.rotation);

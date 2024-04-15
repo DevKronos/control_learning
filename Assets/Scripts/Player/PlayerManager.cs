@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour , IDamagable
     void Awake()
     {
         instance = this;
+
     }
 
     public float health = 100f;
@@ -19,6 +20,7 @@ public class PlayerManager : MonoBehaviour , IDamagable
     public Inventory inventory;
     public Camera playerCam;
     public AmountAmmo playerAmmo;
+
 
     public void Start()
     {

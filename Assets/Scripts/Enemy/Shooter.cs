@@ -21,7 +21,12 @@ public class Shooter : Enemy
     public GameObject origin;
     public GameObject impactEffect;
 
-    public override IEnumerator Attack()
+    public override void Attack()
+    {
+        StartCoroutine(Shooting());
+    }
+
+    public  IEnumerator Shooting()
     {
         GameObject muzzleGo = Instantiate(muzzleFlash,  muzzle.position, muzzle.rotation);
         Destroy(muzzleGo, 0.6f);
