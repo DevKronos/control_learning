@@ -7,8 +7,9 @@ public class Boss : Enemy
     [SerializeField] private float health;
     [SerializeField] private float checkRadius;
     [SerializeField] private float attackCD;
-    private bool canAttack = true;
     [SerializeField] private float attackTime;
+
+    private bool canAttack = true;
     public override float Health { get => health; set => health = value; }
 
     public override float CheckRadius => checkRadius;
@@ -17,29 +18,58 @@ public class Boss : Enemy
 
     public override bool CanAttack => canAttack;
 
-    public KnifeCircle knifesOrigin;
+    public KnifeCircle knifes;
+    public GameObject LaserOrigin;
+    public DeathRain rain;
+    public Transform muzzle;
 
     public override void Attack()
     {
-        int nextAttack = Random.Range(0, 2);
+        int nextAttack = Random.Range(0, 3);
         if (nextAttack == 0)
         {
             StartCoroutine(KnifeRotate());
+        }
+        else if (nextAttack == 1)
+        {
+            LaserShoot();
+        }
+        else if (nextAttack == 2)
+        {
+            StartCoroutine(DeathRain());
         }
     }
 
     public IEnumerator KnifeRotate()
     {
-        canAttack = false;
+        knifes.gameObject.SetActive(true);
 
-        KnifeCircle knifes = Instantiate(knifesOrigin, this.transform.position, this.transform.rotation);
+        yield return new WaitForSeconds(attackTime);
 
-        yield return new WaitForSeconds(attackTime - 0.1f);
+        knifes.gameObject.SetActive(false);
 
-        Destroy(knifes);
+    }
 
-        yield return new WaitForSeconds(0.1f);
+    public void LaserShoot()
+    {
+        GameObject explossion = Instantiate(LaserOrigin, muzzle.position, transform.rotation);
+        Destroy(explossion, 1f);
 
-        canAttack = true;
+        Collider[] colliders = Physics.OverlapCapsule(muzzle.GetChild(0).position, muzzle.GetChild(1).position, 5f);
+        foreach (Collider strucked in colliders)
+        {
+            PlayerManager damagable = strucked.GetComponent<PlayerManager>();
+
+            if (damagable != null) damagable.TakeDamage(15f);
+        }
+    }
+
+    public IEnumerator DeathRain()
+    {
+        rain.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(attackTime);
+
+        rain.gameObject.SetActive(false);
     }
 }

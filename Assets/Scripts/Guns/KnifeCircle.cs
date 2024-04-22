@@ -16,7 +16,7 @@ public class KnifeCircle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 rotateAngel = new Vector3(0, 0.1f, 0);
+        Vector3 rotateAngel = new Vector3(0, 0.3f, 0);
         this.transform.Rotate(rotateAngel);
     }
 }
