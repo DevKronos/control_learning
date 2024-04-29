@@ -10,15 +10,15 @@ public class Spawner : MonoBehaviour, IDamagable
     private float curHealth;
     [SerializeField] private float maxHealth = 500f;
     public float spawnCD = 15f;
-    private int amountForSpawn = 3;
     public float spawnRange = 3f;
+
     private float nextTimeToSpawn = 0f;
     private bool isLowHP = false;
 
+    [SerializeField] private int amountForSpawn = 4;
     private bool spawnIsActive = false;
-    private Enemy[] spawnedEnemies = new Enemy[4];
-    private int enemyLeft;
-    private bool isDied = false;
+    private Enemy[] spawnedEnemies;
+    [SerializeField] private bool isDied = false;
 
     public HealthBar healthbar;
     public Enemy[] enemies;
@@ -28,6 +28,7 @@ public class Spawner : MonoBehaviour, IDamagable
     {
         curHealth = maxHealth;
         healthbar.SetMaxHealth(maxHealth);
+        spawnedEnemies = new Enemy[amountForSpawn];
     }
 
     void Update()

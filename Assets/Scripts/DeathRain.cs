@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class DeathRain : MonoBehaviour
 {
-    private bool isCasting;
+    private bool isCasting = false;
     public Vector3 stopCastingSize;
 
     public Transform castPoint;
     public GameObject rainOrigin;
     public Transform hitZone;
+
+    private GameObject rain;
 
     private void OnEnable()
     {
@@ -21,28 +23,39 @@ public class DeathRain : MonoBehaviour
     {
         if (isCasting)
         {
-            transform.localScale += new Vector3(1, 1, 0);
+            hitZone.localScale += new Vector3(1, 1, 0);
             if (hitZone.localScale == stopCastingSize)
             {
                 isCasting = false;
-                Rain();
+                CastRain();
             }
+        }
+        else
+        {
+            Damaging();
         }
     }
 
-    public void Rain()
+    public void CastRain()
     {
-        GameObject rain = Instantiate(rainOrigin, this.transform.position, this.transform.rotation);
-        Destroy(rain, 10f);
+        rain = Instantiate(rainOrigin, this.transform.position, this.transform.rotation, this.transform);
+    }
 
-        Collider[] colliders = Physics.OverlapCapsule(castPoint.GetChild(0).position, castPoint.GetChild(1).position, 2f);
+    public void Damaging()
+    {
+        Collider[] colliders = Physics.OverlapCapsule(castPoint.GetChild(0).position, castPoint.GetChild(1).position, 7f);
         foreach (Collider strucked in colliders)
         {
             PlayerManager player = strucked.GetComponent<PlayerManager>();
             if (player != null)
             {
-                player.TakeDamage(15f);
+                player.TakeDamage(0.02f);
             }
         }
+    }
+
+    public void DestroyRain()
+    {
+        Destroy(rain);
     }
 }

@@ -25,6 +25,7 @@ public class Boss : Enemy
 
     public override void Attack()
     {
+        canAttack = false;
         int nextAttack = Random.Range(0, 3);
         if (nextAttack == 0)
         {
@@ -32,7 +33,7 @@ public class Boss : Enemy
         }
         else if (nextAttack == 1)
         {
-            LaserShoot();
+            StartCoroutine(LaserShoot());
         }
         else if (nextAttack == 2)
         {
@@ -47,10 +48,10 @@ public class Boss : Enemy
         yield return new WaitForSeconds(attackTime);
 
         knifes.gameObject.SetActive(false);
-
+        canAttack = true;
     }
 
-    public void LaserShoot()
+    public IEnumerator LaserShoot()
     {
         GameObject explossion = Instantiate(LaserOrigin, muzzle.position, transform.rotation);
         Destroy(explossion, 1f);
@@ -62,6 +63,9 @@ public class Boss : Enemy
 
             if (damagable != null) damagable.TakeDamage(15f);
         }
+        yield return new WaitForSeconds(attackTime);
+
+        canAttack = true;
     }
 
     public IEnumerator DeathRain()
@@ -71,5 +75,7 @@ public class Boss : Enemy
         yield return new WaitForSeconds(attackTime);
 
         rain.gameObject.SetActive(false);
+        rain.DestroyRain();
+        canAttack = true;
     }
 }
