@@ -22,7 +22,11 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(string key)
     {
         bool wasDeleted = false;
-        foreach(KeyValuePair<string, Image> item in keys)
+        foreach (KeyValuePair<string, Image> item in keys)
+        {
+            print(item.Key);
+        }
+        foreach (KeyValuePair<string, Image> item in keys)
         {
             if (wasDeleted)
             {

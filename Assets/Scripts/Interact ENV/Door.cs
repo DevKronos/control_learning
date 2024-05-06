@@ -33,20 +33,6 @@ public class Door : MonoBehaviour
                 colors += locks[i].Color + " ";
             }
         }
-        /*foreach(Lock locky in locks)
-        {
-            if (PlayerManager.instance.HasKey(locky.Color))
-            {
-                PlayerManager.instance.LoseKey(locky.Color);
-                locks.Remove(locky);
-                Destroy(locky.gameObject);
-            }
-            else
-            {
-                colors += locky.Color + " ";
-            }
-        }*/
-        print("Here");
         if (colors != "")
         {
             MessageWindow.instance.SendMessage($"You don't have {colors} key :(");

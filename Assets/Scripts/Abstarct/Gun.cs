@@ -45,6 +45,7 @@ public abstract class Gun : MonoBehaviour
         SetAimMode();
         //animator.SetBool("Reloading", false);
         amountAmmo.SetMaxAmmo(maxAmmo);
+        amountAmmo.SetAmount(CurrentAmmo);
     }
 
     public virtual void SetAimMode()

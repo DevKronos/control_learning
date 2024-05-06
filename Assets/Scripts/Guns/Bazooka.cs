@@ -14,12 +14,17 @@ public class Bazooka : Gun
 
     public override int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
 
-    public Rocket rocket;
+    public Rocket rocket_prefab;
     public float speed;
+
+    public override void SetAimMode()
+    {
+        return;
+    }
 
     protected override void Shoot()
     {
-        Rocket rocketGo = Instantiate(rocket, muzzle.position, muzzle.rotation);
+        Rocket rocketGo = Instantiate(rocket_prefab, muzzle.position, muzzle.rotation);
         rocketGo.IsFired = true;
         rocketGo.ExplsEffect = impactEffect;
 
