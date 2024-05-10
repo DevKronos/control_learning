@@ -84,7 +84,6 @@ public class Spawner : MonoBehaviour, IDamagable
         {
             isLowHP = true;
             spawnCD = 8f;
-            Array.Resize(ref spawnedEnemies, 7);
             Spawn();
         }
     }

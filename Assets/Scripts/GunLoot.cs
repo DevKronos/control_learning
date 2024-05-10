@@ -9,7 +9,6 @@ public class GunLoot : Item
 
     public override void TakeAction()
     {
-        print("Bazooka here");
         weaponHolder.AddWeapon(loot);
         Destroy(this.gameObject);
     }

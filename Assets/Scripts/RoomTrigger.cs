@@ -25,8 +25,6 @@ public class RoomTrigger : MonoBehaviour
             if (player == null) return;
             ChangeDors(true);
             ActivateSpawners();
-
-            Debug.Log("Spawners activate");
         }
         
         

@@ -24,10 +24,6 @@ public class Inventory : MonoBehaviour
         bool wasDeleted = false;
         foreach (KeyValuePair<string, Image> item in keys)
         {
-            print(item.Key);
-        }
-        foreach (KeyValuePair<string, Image> item in keys)
-        {
             if (wasDeleted)
             {
                 item.Value.transform.Translate(-60, 0, 0);

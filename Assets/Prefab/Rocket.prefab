@@ -130,4 +130,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explsRadius: 5
   force: 0
-  damage: 70
+  damage: 100
